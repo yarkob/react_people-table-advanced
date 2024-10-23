@@ -14,7 +14,7 @@ export const App = () => {
           <Routes>
             <Route path="/home" element={<Navigate to="/" replace />} />
             <Route path="/" element={<h1 className="title">People Page</h1>} />
-            <Route path="/people/:personName?" element={<PeoplePage />} />
+            <Route path="/people/:personId?" element={<PeoplePage />} />
             <Route
               path="*"
               element={<h1 className="title">Page not found</h1>}

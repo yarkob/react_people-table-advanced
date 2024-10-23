@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Person } from '../types';
 import { getPeople } from '../api';
+import { extendPeople } from '../utils/extendPeople';
 
 enum LoadingStatus {
   Initial = 'initial',
@@ -30,7 +31,7 @@ export const PeoplePage = () => {
           setError(true);
         }
 
-        setPeople(data);
+        setPeople(extendPeople(data));
       })
       .catch(() => {
         setError(true);
@@ -90,7 +91,9 @@ export const PeoplePage = () => {
                   </p>
                 )}
 
-                {!!filteredPeople.length && <PeopleTable people={people} />}
+                {!!filteredPeople.length && (
+                  <PeopleTable people={filteredPeople} />
+                )}
               </div>
             </div>
           </div>

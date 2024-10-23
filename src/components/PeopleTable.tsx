@@ -17,7 +17,7 @@ const PeoplePage: React.FC<Props> = ({ people }) => {
 
       <tbody>
         {people.map((person: Person) => (
-          <TableRow key={person.name} people={people} person={person} />
+          <TableRow key={person.name} person={person} />
         ))}
       </tbody>
     </table>
