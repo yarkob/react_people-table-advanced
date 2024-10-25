@@ -3,18 +3,19 @@ import { SearchLink } from './SearchLink';
 import cn from 'classnames';
 import { CENTURIES } from '../utils/centuries';
 import { getMultiParams } from '../utils/getMultiParams';
+import { SearchFields } from '../utils/SearchFields';
 
 export const PeopleFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const sex = searchParams.get('sex');
-  const centuries = searchParams.getAll('centuries');
+  const sex = searchParams.get(SearchFields.Sex);
+  const centuries = searchParams.getAll(SearchFields.Centuries);
   const onSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
 
     if (query) {
-      searchParams.set('query', query);
+      searchParams.set(SearchFields.Name, query);
     } else {
-      searchParams.delete('query');
+      searchParams.delete(SearchFields.Name);
     }
 
     setSearchParams(searchParams);
@@ -52,7 +53,7 @@ export const PeopleFilters = () => {
             type="search"
             className="input"
             placeholder="Search"
-            value={searchParams.get('query') || ''}
+            value={searchParams.get(SearchFields.Name) || ''}
             onChange={onSearchChange}
           />
 

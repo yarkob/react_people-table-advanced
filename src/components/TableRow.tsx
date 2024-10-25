@@ -11,8 +11,6 @@ interface Props {
 export const TableRow: FC<Props> = ({ person }) => {
   const { personId } = useParams();
 
-  console.log(personId);
-
   return (
     <tr
       key={person.name}
