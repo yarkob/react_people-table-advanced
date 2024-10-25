@@ -2,8 +2,14 @@ import { FC } from 'react';
 import { SearchLink } from './SearchLink';
 import { useSearchParams } from 'react-router-dom';
 import { SearchFields } from '../utils/SearchFields';
+import cn from 'classnames';
 
-const COLUMNS = ['name', 'sex', 'born', 'died'];
+const COLUMNS = [
+  { id: 'name', title: 'Name' },
+  { id: 'sex', title: 'Sex' },
+  { id: 'born', title: 'Born' },
+  { id: 'died', title: 'Died' },
+];
 
 export const TableHead: FC = () => {
   const [searchParams] = useSearchParams();
@@ -14,8 +20,8 @@ export const TableHead: FC = () => {
     <thead>
       <tr>
         {COLUMNS.map(column => {
-          const isSameColumn = sort === column;
-          const newSort = isSameColumn && order === 'desc' ? null : column;
+          const isSameColumn = sort === column.id;
+          const newSort = isSameColumn && order === 'desc' ? null : column.id;
           let newOrder = null;
 
           if (isSameColumn) {
@@ -23,12 +29,18 @@ export const TableHead: FC = () => {
           }
 
           return (
-            <th key={column}>
+            <th key={column.id}>
               <span className="is-flex is-flex-wrap-nowrap is-capitalized">
-                {column}
+                {column.title}
                 <SearchLink params={{ sort: newSort, order: newOrder }}>
                   <span className="icon">
-                    <i className="fas fa-sort"></i>
+                    <i
+                      className={cn('fas', {
+                        'fa-sort': sort !== column.id,
+                        'fa-sort-up': isSameColumn && sort && !order,
+                        'fa-sort-down': isSameColumn && sort && order,
+                      })}
+                    ></i>
                   </span>
                 </SearchLink>
               </span>
